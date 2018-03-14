@@ -15,6 +15,7 @@
 - 2018年3月14日 [rsync+inotify实现文件实时同步(一)](https://www.hafang.top/article/rsync-inotify-synchronize-one)
 - 2018年3月14日 [rsync+inotify实现文件实时同步(二)](https://www.hafang.top/article/rsync-inotify-synchronize-two)
 - 2018年3月14日 [Centos7系统安装后的基本优化和安全设置](https://www.hafang.top/article/Centos7-basic-optimized-system-installation)
+- 2018年3月14日 [vim的基本用法及进阶](https://www.hafang.top/article/vim-basic-use)
 - 2018年3月14日 [Linux正则表达式示例](https://www.hafang.top/article/Linux-regular-expressions)
 - 2018年3月14日 [Bash Shell编程之基本](https://www.hafang.top/article/Bash-Shell-Programming-guide)
 - 2018年3月14日 [Bash Shell编程之流程控制](https://www.hafang.top/article/Bash-Shell-Programming-guide-for-if-case-process-control)
