@@ -98,7 +98,7 @@ egrep -v '^#|^$' file_name # 过滤出不包含空行和以#开头的内容
 
 ## find
 
-find pathname -options [-print, -exec, -ok, |xargs...]
+find pathname -options [-print, -exec, -ok, xargs...]
 
 - pathname: 文件路径
 
@@ -108,7 +108,7 @@ find pathname -options [-print, -exec, -ok, |xargs...]
 
 - -ok 表示和-exec效果是一样的，只是他会给用户一个选择判断的机会
 
-- | xargs 个人是最喜欢这个参数，因为它是查找到文件后就执行，而-exec是在找到所有相关后再执行
+- xargs 个人是最喜欢这个参数，因为它是查找到文件后就执行，而-exec是在找到所有相关后再执行
 
 - options:
 
