@@ -1,6 +1,8 @@
 # Welcome to hafang's Blog!
 
-> [Python learn](http://www.hafang.top/article/python-full-way)
+> [The way of learning Python](http://www.hafang.top/article/python-learn-way)
+
+> [Reaction to a Book](http://www.hafang.top/article/reaction-to-book)
 
 博客托管于[Github](https://github.com/chenfan0307/blog),有问题欢迎提[issues](https://github.com/chenfan0307/blog/issues)
 
