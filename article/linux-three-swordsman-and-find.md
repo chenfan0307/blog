@@ -151,16 +151,3 @@ find . -type f -name "*.swap" -delete
 find . -type f -user root -exec chow chenfan {} \
 find . -type f -mtime + 10 -name "*.txt" -exec cp {} OLD \
 ```
-
-
-
-
-
-
-
-## 
-
-
-
-
-
