@@ -2,9 +2,11 @@
 
 
 
-## 三剑客
+## 1.三剑客
 
 ### awk
+
+> awk格式如下
 
 
 
@@ -21,21 +23,6 @@ sed ［-nefr］ ［n1,n2］ action
 - -r 支持扩展表正则达式
 
 - n1,n2 是需要处理的行 这个是可选项
-
-- action:
-
-  a append
-
-  c change
-
-  d delete
-
-  i insert
-
-  p print
-
-  s search 和replace 
-
   ```shell
   sed 1,20s/old/new/g file_name
   ```
@@ -73,14 +60,23 @@ sed 分析 日志 在以下的secure日志文件中，我想用Sed抓取12∶48�
 ```
 sed  -n '/12:48:48/,/12:48:55/' /var/log/secure
 ```
-
+```
+sed '1,4d' file #把第一行到第四行删除，并显示剩下的内容 
+sed '/Chen/d' file #删除带有Chen的行 
+sed '/Chen/!d' file #把不含Chen的行删除 
+sed '/^$/d' file #删除空行 sed显示用法 
+sed -n '/chen/p' file 
+sed -n '/chen/s/aaa/bbb/p' file #将包含chen的行中的aaa替换为bbb
+```
 ### grep
+
+> grep 格式如下
 
 grep - [acinv] '搜索的内容' file_name
 
 - -a  表示以文本文件方式搜索
 - -c 表示计算找到符合行的次数
--  -n 表示输出行号
+- -n 表示输出行号
 
 ```
 grep -n '^[adi]*' file_name # 寻找以a,d,i开头的行
@@ -88,6 +84,7 @@ grep -n '[^g]*' file_name # 寻找不带有g的字符串行
 grep -n 'o \{2\}' file_name # 搜索包含2个o的字符串的行
 grep -n 'o \{2,5\}gc' file_name # 搜索至少2到5个o，再以gc结尾的字符串的行
 grep -n 'o \{2,\}' file_name # 搜索至少包含2个o的字符串的行
+grep -f psswd /etc/passwd #在/etc/passwd中查找passwd文件中的内容
 ```
 
 个人最喜欢的还是egrep
@@ -96,9 +93,11 @@ grep -n 'o \{2,\}' file_name # 搜索至少包含2个o的字符串的行
 egrep -v '^#|^$' file_name # 过滤出不包含空行和以#开头的内容
 ```
 
-## find
+## 2.find
 
-find pathname -options [-print, -exec, -ok, |xargs...]
+> find 格式如下
+
+find pathname -options [-print, -exec, -ok, xargs...]
 
 - pathname: 文件路径
 
@@ -108,46 +107,26 @@ find pathname -options [-print, -exec, -ok, |xargs...]
 
 - -ok 表示和-exec效果是一样的，只是他会给用户一个选择判断的机会
 
-- | xargs 个人是最喜欢这个参数，因为它是查找到文件后就执行，而-exec是在找到所有相关后再执行
+- xargs 个人是最喜欢这个参数，因为它是查找到文件后就执行，而-exec是在找到所有相关后再执行
 
 - options:
-
-  ​	-name : 以文件名
-
   ​	-perm : 权限
-
-  ​	-user : 所属用户
-
-  ​	-group : 所属组
-
   ​	-mtime -n/+n/n :  -n是几天内，+n是几天前，n是第几天
 
+example:
 ```
-find ~ -name "*.log" -print
 find . -perm 007 -print
-
-find /data -name "/data/chenfan" -prune -o -print  # ignore /data/chenfan
-
-find / -mtime -5 -print 
 find /data/chenfan -mtime +3 -print
-
 find /etc -type d -print 
-
-find /data/chenfan -size +100M -print 
 find /data/chenfan -size +100M -size -5G -print 
-
 find . -type f -exec ls -l {} \;
 find /var/logs -type f -mtime +5 -exec rm {} \;
-
-find / -type f -print | xargs file
 find /data/chenfan -type f -print | xargs rm -f
-
 find . \(-name "*.txt" -o -name "*.pdf"\) -print
-# 使用正则查找txt和pdf
-find . -regex ".*\(\.txt|\.pdf)$"
+find . -regex ".*\(\.txt|\.pdf)$" -print
 find . ! -name "*.txt" -print
 find . -maxdepth 1 -type f
 find . -type f -name "*.swap" -delete
-find . -type f -user root -exec chow chenfan {} \
-find . -type f -mtime + 10 -name "*.txt" -exec cp {} OLD \
+find . -type f -user root -exec chow chenfan {} \;
+find . -type f -mtime + 10 -name "*.txt" -exec cp {} OLD \;
 ```
