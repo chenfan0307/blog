@@ -48,7 +48,9 @@ vi /etc/sshd_confg
 ```
 
 ## 5.关闭firewalld防火墙
+
 systemctl stop firewalld.service
+
 systemctl status firewalld.service
 ## 6.配置ntpdate时间同步
 
