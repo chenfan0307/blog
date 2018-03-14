@@ -8,7 +8,7 @@
 - 2018年3月14日 [Linux三剑客与find的使用](https://www.hafang.top/article/linux-three-swordsman-and-find)
 - 2018年3月14日 [nginx从入门到实践之基础篇](https://www.hafang.top/article/nginx-from-entry-to-practice)
 - 2018年3月14日 [Nginx从入门到实践之深度学习篇](https://www.hafang.top/article/nginx-depth-study)
-- 2018年3月14日 [nginx从入门到实践之场景实践篇](https://www.hafang.top/article/nginx--from-the introductory-to-practice-series-of-scenes-practice-articles)
+- 2018年3月14日 [nginx从入门到实践之场景实践篇](https://www.hafang.top/article/nginx--from-the-introductory-to-practice-series-of-scenes-practice-articles)
 - 2018年3月14日 [Docker快速入门指南](https://www.hafang.top/article/docker-quick-start-guide)
 - 2018年3月14日 [rsync+inotify实现文件实时同步(一)](https://www.hafang.top/article/rsync-inotify-synchronize-one)
 - 2018年3月14日 [rsync+inotify实现文件实时同步(二)](https://www.hafang.top/article/rsync-inotify-synchronize-two)
