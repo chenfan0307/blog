@@ -18,13 +18,13 @@ Disabled
 
 ## 2.修改SSH服务端远程登录的配置
 sshd的配置文件在/etc/ssh目录下
-ssh_config client
-sshd_config server
+ssh_config -> client
+sshd_config -> server
 一般是修改远程登录的端口和禁止root登录
 ```shell
 vi /etc/sshd_confg
-17 #Port 22  [-_-] 更改ssh远程端口，需修改
-38 #PermitRootLogin yes [-_-]禁止root登录，需禁止
+17 #Port 22  # 更改ssh远程端口，需修改
+38 #PermitRootLogin yes # 禁止root登录，需禁止
 [root@elk selinux]# systemctl restart sshd.service
 ```
 
@@ -51,16 +51,19 @@ vi /etc/sshd_confg
 systemctl stop firewalld.service
 systemctl status firewalld.service
 ## 6.配置ntpdate时间同步
-```
+
 安装ntp
-[root@elk selinux]# yum install bash-completion ntp
 
 ```
+[root@elk selinux]# yum install bash-completion ntp
 [root@elk selinux]# crontab -e
 * */5 * * * /usr/sbin/ntpdate cn.ntp.org.cn> /dev/nul 2&>1
 ```
+
 ## 7.配置国内yum源
+
 配置阿里云的yum源
+
 ```
 [root@elk selinux]# mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 [root@elk selinux]# wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
@@ -69,6 +72,7 @@ systemctl status firewalld.service
 ```
 
 ## 8.linux最小化原则
+
 - 安装精简版本的linux系统，yum安装软件最小化
 - 开机自启动服务最小化，不开无用的服务
 - 操作命令最小化原则
@@ -78,6 +82,7 @@ systemctl status firewalld.service
 
 ## 9.隐藏系统版本信息显示
 清空/etc/issue 的内容
+
 ```
 [root@elk selinux]# > /etc/issue
 [root@elk selinux]# 
@@ -86,7 +91,9 @@ systemctl status firewalld.service
 ```
 
 ## 10.精简开机启动项
+
 可以用脚本，也可以手动来做，第一次做表示手动，重复3次以上，最好是脚本化
+
 ```
 [root@elk selinux]# chkconfig --list | grep 3:on
 
@@ -95,6 +102,7 @@ network        	0:off	1:off	2:on	3:on	4:on	5:on	6:off
 openresty      	0:off	1:off	2:off	3:on	4:on	5:on	6:off
 
 [root@elk selinux]# systemctl disable command
-``
+```
+
 ## 11.清楚多余的系统帐号
 /etc/passwd  注释即可
