@@ -12,7 +12,7 @@
 - 2018年3月14日 [Nginx从入门到实践之深度学习篇](https://www.hafang.top/article/nginx-depth-study)
 - 2018年3月14日 [Nginx从入门到实践之场景实践篇](https://www.hafang.top/article/nginx--from-the-introductory-to-practice-series-of-scenes-practice-articles)
 - 2018年3月14日 [Docker快速入门指北](https://www.hafang.top/article/docker-quick-start-guide)
-- 2018年3月14日 [Rsync+inotify实现文件实时同步(一)](https://www.hafang.top/article/rsync-inotify-synchronize-one)
+- 2018年3月14日 [Rsync+inotify实现文件实时同步(一)](https://www.hafang.top/article/rsync-synchronize-one)
 - 2018年3月14日 [Rsync+inotify实现文件实时同步(二)](https://www.hafang.top/article/rsync-inotify-synchronize-two)
 - 2018年3月14日 [Centos7系统安装后的基本优化和安全设置](https://www.hafang.top/article/Centos7-basic-optimized-system-installation)
 - 2018年3月14日 [Vim的基本用法及进阶](https://www.hafang.top/article/vim-basic-use)
