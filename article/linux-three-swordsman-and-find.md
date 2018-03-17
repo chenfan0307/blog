@@ -9,7 +9,11 @@
 > awk格式如下
 
 
-
+### awk 常用语法
+  ```
+  [root@elk /]# du -ah * | awk '$1~/[0-9]M/ {print $0}' |sort -nr | head -15
+  ```
+  
 ### sed
 
 > sed格式如下
