@@ -9,11 +9,54 @@
 > awk格式如下
 
 
-### awk 常用语法
+#### awk 常用语法
   ```
   [root@elk /]# du -ah * | awk '$1~/[0-9]M/ {print $0}' |sort -nr | head -15
+  [chenfan@SZD-L0085162 ~]$ awk -F: '{print NF}' /etc/passwd
+  [chenfan@SZD-L0085162 ~]$ awk '$2~/X/' reg.log 
+  Zhang Xiaoyu    390320151  :155:90:201
+  Wang  Xiaoai    3515064655 :50:95:135
+  [chenfan@SZD-L0085162 ~]$ awk -F: '$NF!~/nologin$/{print $1}' /etc/passwd
+  root
+  sync
+  shutdown  
+  halt
+  chkusr
+  chenfan
+  [chenfan@SZD-L0085162 ~]$ awk 'BEGIN{print "姓", "名"}{print $1, $2}' reg.log 
+  姓 名
+  Zhang Dandan
+  Zhang Xiaoyu
+  [chenfan@SZD-L0085162 ~]$ awk 'BEGIN{print "姓", "名"}{print $1, $2}' reg.log |column -t
+  姓     名
+  Zhang  Dandan
+  Zhang  Xiaoyu
+ 
+  awk '/^$/{i=i+1}END{print i}' /etc/services
+  16
+  awk '{i=i+$0}END{print i}' num.log  # seq 100 > num.log
+  5050  
   ```
-  
+#### awk 数组
+  ```
+  数组用于分类计算和统计
+  http://www.nmtui.com/index.html
+  http://www.nmtui.com/1.html
+  http://post.nmtui.com/index.html
+  http://mp3.nmtui.com/index.html
+  http://www.nmtui.com/3.html
+  http://post.nmtui.com/2.html
+  awk -F '[/]+' '{print $2}' a.log | uniq -c | sort -nr 
+  [chenfan@SZD-L0085162 ~]$ awk -F '/+' '{S[$2]++}END{for(i in S )print i, S[i]}' a.log | sort -nr
+  www.nmtui.com 3
+  post.nmtui.com 2
+  mp3.nmtui.com 1
+  [chenfan@SZD-L0085162 ~]$ awk '{hotel[$1]++}END{for(pol in hotel)print pol,hotel[pol]}' access.log |head -3
+  101.226.125.115 284
+  180.154.137.177 516
+  101.226.125.116 127
+  ```
+
 ### sed
 
 > sed格式如下
