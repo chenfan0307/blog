@@ -2,7 +2,7 @@
 
 ## 安装
 参考官方文档
-iptables -I INNPUT -p tcp -m tcp --dport 8080 -j ACCEPT
+iptables -I INNPUT -p tcp -m tcp --dport 13855 -j ACCEPT
 
 线上常用配置：
 多实例端口修改 
