@@ -128,6 +128,89 @@ execute(task2)
 Done.
 ```
 
-此文入门教程[转自](http://wklken.me/posts/2013/03/25/python-tool-fabric.html)，也可看官翻。个人推荐是看管翻
+此文入门教程[转自](http://wklken.me/posts/2013/03/25/python-tool-fabric.html)，也可看官翻。个人推荐是看官翻
 
 ## 线上实例
+```shell
+#!/bin/bash
+#
+# deploy projects to enviroment
+#
+
+ENV=$1
+PROJECTS=$2
+TAG=$3
+
+DIST_DIR=$BUILD_HOME/target/dist/$ENV
+FABFILE=$BUILD_COMMONS_DIR/fabfile_test.py
+
+case $ENV in
+	"dev")
+	D_HOST=	;;
+	"test")
+	D_HOST= ;;
+	"pre")
+	D_HOST= ;;
+esac
+
+TAG=${TAG//\//_}
+for proj in ${PROJECTS//,/}; do
+	echo "[$ENV] deploying project: $proj"
+	DOCKER_NAME="run-${proj}"
+	APP="${proj#*-}"
+	LOCAL_TGZ_FILE="$DIST_DIR/${proj}/${TAG}.tgz"
+
+	R_DIR="/release/run/backend"
+	D_DIR="/www/run/backend/${proj}/webapps"
+
+	fab -H $D_HOST -f $FABFILE \
+		docker_deploy:local_tgz_file=$LOCAL_TGZ_FILE,release_dir=$R_DIR,deploy_dir=$D_DIR,project=$proj,tag=$TAG,app=$APP,docker_name=$DOCKER_NAME
+
+	if [ "$?" != "0"  ]; then
+		echo "!!![$ENV] Finish to deploy project: $proj"
+		echo "Have a 30s sleep for next project deployment"
+		sleep 30s
+	fi	
+done
+```
+```python
+#!/bin/env python
+#
+# fabric for internal environment
+
+from fabric.api import env, local
+from fabric.operations import run, put
+
+def _copy(release_dir, deploy_dir, local_tgz_file, project, tag, app):
+	release_path="{}/{}".format(release_dir, project)
+	run('mkdir -p {} && rm -rf {}'.format(release_path, release_path))
+	local('cat {} | ssh {}@{} "tar -zxf -C {}"'.format(local_tgz_file, env.user, env.host, release_path))
+	
+	run('mkdir -p {} && cd {} && rm -rf {} && ln -s {}/{} {}'.format(deploy_dir, deploy_dir, app, release_path, tag, app))
+
+def _acc_copy(release_dir, deploy_dir, local_tgz_file, project, tag, app):
+	release_path='{}/{}/{}'.format(release_dir, project, dir)
+	temp_path='/tmp/{}'.format(release_path,)
+	run('mkdir -p {} && rm -rf {}'.format(temp_path, temp_path))
+	local('cat {} | ssh {}@{} "tar -zxf -C {}"'.format(local_tgz_file,env.user, env.host, temp_path))
+
+	run('mkdir -p {} && rm -rf {}'.format(release_path, release_path))
+	run('cp -r {}/{}/* {}'.format(temp_path, tag, release_path))
+
+	run('rm -rf {}'.format(temp_path))
+
+def docker_deploy(release_dir, deploy_dir, local_tgz_file, project, app, docker_name):
+	
+	run('docker stop {}'.format(docker_name))
+	run('docker start {}'.format(docker_name))
+
+def static_deploy(release_dir, deploy_dir, local_tgz_file, project, app):
+	_copy(release_dir, deploy_dir, local_tgz_file, project, app)
+
+def static_acc_deploy(release_dir, deploy_dir, local_tgz_file, project, app, dir):
+	_acc_copy(release_dir, deploy_dir, local_tgz_file, project, tag, dir)
+
+def node_deploy(release_dir, deploy_dir, local_tgz_file, project, tag, app):
+	_copy(release_dir, deploy_dir, local_tgz_file, project, tag, app)
+	run('cd {}/{} && pm2 start pm2.config.js'.format(deploy_dir, app))
+```
