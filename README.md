@@ -1,6 +1,6 @@
 # Welcome to hafang's Blog!
 
-> [The way of learning Python](http://www.hafang.top/article/python-learn-way)
+> [The way of learning Python In Preparationn](http://www.hafang.top)
 
 > [Reaction to a Book](http://www.hafang.top/article/reaction-to-book)
 
@@ -8,7 +8,6 @@
 
 ---
 - 2018年3月14日 [Linux三剑客与find的使用](https://www.hafang.top/article/linux-three-swordsman-and-find)
-- 2018年4月14日 [Linux sed & awk 101 hacks](https://www.hafang.top/article/linux-sed-awk-101)
 - 2018年3月14日 [Nginx从入门到实践之基础篇](https://www.hafang.top/article/nginx-from-entry-to-practice)
 - 2018年3月14日 [Nginx从入门到实践之深度学习篇](https://www.hafang.top/article/nginx-depth-study)
 - 2018年3月14日 [Nginx从入门到实践之场景实践篇](https://www.hafang.top/article/nginx--from-the-introductory-to-practice-series-of-scenes-practice-articles)
@@ -25,9 +24,6 @@
 - 2018年3月14日 [Jenkins入门指北](https://www.hafang.top/article/jenkins-quick-start-guide)
 - 2018年3月15日 [Fabric入门指北](ttps://www.hafang.top/article/fabric-quick-start-guide)
 - 2018年3月15日 [Ansible入门指北](https://www.hafang.top/article/ansible-quick-start-guide)
-- 2018年3月15日 [Saltstac入门指北](https://www.hafang.top/article/saltstac-quick-start-guide)
 - 2018年3月15日 [Redis入门指北](https://www.hafang.top/article/redis-quick-start-guide)
 - 2018年3月15日 [Zookeeper入门指北](https://www.hafang.top/article/zookeeper-quick-start-guide)
-- 2018年3月15日 [Solor入门指北](https://www.hafang.top/article/solor-quick-start-guide)
-- 2018年3月15日 [ActiveMQ入门指北](https://www.hafang.top/article/solor-quick-start-guide)
 - 2018年3月20日 [Tomcat部署实践及安全调优](https://www.hafang.top/article/tomcat-quick-start-guide)
