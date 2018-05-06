@@ -44,7 +44,8 @@ rm -rf one.txt two.txt onebak.tmp twobak.tmp
 vimdiff oneresult tworesult
 ```
 
-4. if语句
+4.if语句
+
 
 ```
 #!/bin/bash
@@ -52,9 +53,8 @@ vimdiff oneresult tworesult
 if [ "$(id -u)"  -eq "0" ]; then
 	tar -czf /root/etc.tar.gz /etc &>/dev/null
 fi
-```
 
-```
+
 #!/bin/bash
 
 read -p "Enter a password: " Password
@@ -62,7 +62,8 @@ read -p "Enter a password: " Password
 [ "$Password" == "Chenfan@38" ] && echo "OK" || echo "Not Ok"
 ```
 
-5. case语句
+5.case语句
+
 ```
 #!/bin/bash
 
@@ -78,6 +79,7 @@ esac
 ```
 
 6. for语句
+
 ```
 #!/bin/bash
 
@@ -85,9 +87,7 @@ Domain=szzjcs.com
 for Mail_u in chenfan flanky tim; do
 	mail -s "Log" $Mail_u@$Domain </var/log/messages
 done
-```
 
-```
 #!/bin/bash
 
 for i in {1..9}; do
@@ -99,6 +99,7 @@ done
 ```
 
 7. while语句
+
 ```
 #!/bin/bash
 
@@ -107,9 +108,7 @@ File=/var/log/messages
 while read -r line; do
 	echo $line
 done < $File
-```
 
-```
 #!/bin/bash
 
 while True; do
@@ -135,6 +134,7 @@ while True; do
 	esac
 
 done
+
 ```
 
 8. select语句
