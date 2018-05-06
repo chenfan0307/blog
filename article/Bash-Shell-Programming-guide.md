@@ -62,7 +62,8 @@ read -p "Enter a password: " Password
 [ "$Password" == "Chenfan@38" ] && echo "OK" || echo "Not Ok"
 ```
 
-5.case语句
+
+ 5.case语句
 
 ```
 #!/bin/bash
@@ -78,7 +79,7 @@ case $Date in
 esac
 ```
 
-6. for语句
+ 6. for语句
 
 ```
 #!/bin/bash
@@ -98,7 +99,7 @@ for i in {1..9}; do
 done
 ```
 
-7. while语句
+ 7. while语句
 
 ```
 #!/bin/bash
@@ -134,10 +135,9 @@ while True; do
 	esac
 
 done
-
 ```
 
-8. select语句
+ 8. select语句
 
 ```
 #!/bin/bash
