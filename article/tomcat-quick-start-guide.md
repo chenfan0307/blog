@@ -32,7 +32,7 @@ CATALINA_OPTS="-server -Xms1024m -Xmx1024m -Xmn300m -Xss800k -XX:PermSize=300m -
 
 之前公司配置 记得一般是修改这3个地方
 
-可以参考[老男孩博客](http://blog.oldboyedu.com/
+可以参考[老男孩博客](http://blog.oldboyedu.com/)
 
 ## 性能优化
 
