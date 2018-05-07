@@ -14,10 +14,9 @@ jenkins是一个独立的开源的自动化服务器，可用于自动化各种�
 * 持续集成中的任何一个环节都是自动完成的，无需太多的人工干预，有利于减少重复以节省时间，费用和工作量。
 
 ## 安装
-[参考](https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions)
+[参考](https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions)个人环境是centos7
 
 
-个人环境是centos7
 不同的环境，请[参考](https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins)
 
 ## 配置
