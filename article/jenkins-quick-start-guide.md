@@ -15,6 +15,8 @@ jenkins是一个独立的开源的自动化服务器，可用于自动化各种�
 
 ## 安装
 [参考](https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions)
+
+
 个人环境是centos7
 不同的环境，请[参考](https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins)
 
@@ -25,10 +27,12 @@ jenkins是一个独立的开源的自动化服务器，可用于自动化各种�
 ### 权限配置
 
 ### 构建配置
-	觉得自己把jenkins用的比较简单，jenkins可以用的很重，也可以用的很轻。个人用jenkins是用的比较轻，思路是利用jenkins提供的插件，将参数作为选项传入脚本，以$1,$2..的形式，后期执行脚本推送源码包到指定服务器，再重启服务。
+觉得自己把jenkins用的比较简单，jenkins可以用的很重，也可以用的很轻。个人用jenkins是用的比较轻，思路是利用jenkins提供的插件，将参数作为选项传入脚本，以$1,$2..的形式，后期执行脚本推送源码包到指定服务器，再重启服务。
 
 ## 结合sonarqube 做代码分析
 [sonar官方文档](http://docs.sonarqube.org/display/SONAR/Analyzing+with+SonarQube+Scanner)
+
 [安装参考](https://www.ibm.com/developerworks/cn/opensource/os-sonarqube/index.html)
+
 [结合jenkins参考](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins)
 
