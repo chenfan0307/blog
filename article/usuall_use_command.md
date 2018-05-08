@@ -1,5 +1,6 @@
 # 个人常用命令
 
+```
 hostnamectl --static set-hostname devops
 
 yum install bash-completion ntp
@@ -53,6 +54,8 @@ ps -ef | awk '{if($2 == "Z"){print $4}}' | kill -9
 ping www.baidu.com | awk '{print $0 "\t" strftime("%Y-%m-%d %H:%M:%S", systime())}' >>/tmp/a.log &
 
 ```
+
+```
 whatis command # 简要命令说明
 wahtis -w command # 正则匹配
 info command # 详细文档
@@ -98,9 +101,12 @@ lsof -i "tcp|udp"
 lsof -i:3306
 ```
 
+```
 du -sh * /etc | sort -rn | head -n 10
 
 mpstat 5 5 判断cpu负载 检查%idle是否小于5%
+```
+
 ### iostat
 
 iostat -mx 1 5  检查磁盘i/o的使用率(%util)是否超过100%
@@ -112,7 +118,9 @@ iostat -mx 1 5  检查磁盘i/o的使用率(%util)是否超过100%
 
 ### sar
 
+```
 sar -q -f /var/log/sa/sa12 -s 05:00:00 -e 12:00:00
+```
 
 `BASH快捷输入或删除`
 ```
