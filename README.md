@@ -18,7 +18,6 @@
 - 2018年3月14日 [Vim的基本用法及进阶](https://www.hafang.top/article/vim-basic-use)
 - 2018年3月14日 [Linux正则表达式示例](https://www.hafang.top/article/Linux-regular-expressions)
 - 2018年3月14日 [Bash Shell编程之基本](https://www.hafang.top/article/Bash-Shell-Programming-guide)
-- 2018年3月14日 [Bash Shell编程之流程控制](https://www.hafang.top/article/Bash-Shell-Programming-guide-for-if-case-process-control)
 - 2018年5月5日 [Docker快速入门指北](https://www.hafang.top/article/docker-quick-start-guide)
 - 2018年5月7日 [Mysql快速入门指北](https://www.hafang.top/article/mysql-quick-start-guide)
 - 2018年5月7日 [Jenkins入门指北](https://www.hafang.top/article/jenkins-quick-start-guide)
