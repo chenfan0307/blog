@@ -13,6 +13,8 @@ ${var#pattern} 从var值前面开始砍掉与pattern最短的匹配项
 ${var##pattern} 从var值前面开始砍掉与pattern最长的匹配项
 ${var%pattern} 从var值的末尾开始砍掉与pattern最短的匹配项
 ${var%%pattern} 从var值的末尾开始砍掉与pattern最长的匹配项
+${var\\,\ } 将逗号替换为空
+${var\root\chenfan} 将root替换为chenfan
 ```
 
 

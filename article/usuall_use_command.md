@@ -53,6 +53,8 @@ ps -ef | awk '{if($2 == "Z"){print $4}}' | kill -9
 
 ping www.baidu.com | awk '{print $0 "\t" strftime("%Y-%m-%d %H:%M:%S", systime())}' >>/tmp/a.log &
 
+
+wget -p /data/to/directory https://path.to.the/file
 ```
 
 ```

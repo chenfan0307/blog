@@ -38,23 +38,44 @@ echo stat | nc 127.0.0.1 2181 # 校验
 
 - 基本环境
   主机名 IP地址 监听端口 leader交互端口 选举端口 myid
+
   zk01 10.25.82.38 2182 2888 3888 1
 
   zk01 10.25.82.39 2183 2888 3888 2
 
   zk01 10.25.82.40 2184 2888 3888 3
 
+
+
+2888端口用来集群成员的信息交换，是服务器与集群中的leader服务器交换信息的端口
+
+
+
+3888端口是leader挂掉的时候用来进行选举leader所用的
+
+
+
 sudo useradd zookeeper
 
 sudo mkdir /data/zk0{1..3}/logs -p # 一台机器集群
 
-sudo cp -a /usr/lcoal/zk /usr/local/zk0{1..3} # 一台机器集群
 
-sudo chown zookeeper.chenfan /usr/local/zk0{1..3} # 一台机器集群
 
-将主配置文件zoo.conf
+do chown zookeeper.chenfan /usr/local/zk0{1..3} # 一台机器集群
+
+
 
 dataDir=/data/zk0{1..3}  # 依次/data/zk01 ...
+
+
+
+for i in {1..3};do cp -a /opt/zookeper/* /data/zookeeper/zk0$i;done
+
+
+
+dataDir=/data/zookeeper/zk01/data1
+
+
 
 server.1=127.0.0.1:2888:3888
 
@@ -62,18 +83,37 @@ server.2=127.0.0.1:2889:3889
 
 server.3=127.0.0.1:2900:3890
 
-echo 1 >/data/zk01/myid
 
-echo 2 >/data/zk02/myid
 
-echo 3 >/data/zk03/myid
+`myid  需要放在zoo.cfg配置文件的dataDir中`
+
+
+
+echo 1 >/data/zookeeper/zk01/data1/myid
+
+echo 2 >/data/zookeeper/zk02/data1/myid
+
+echo 3 >/data/zookeeper/zk03/data1/myid
+
+
 
 telnet ip
 
-stat 查看zookeeper节点的状态
 
+
+ zkServer.sh status  查看zookeeper节点的状态
 
 iptables -A INPUT -p tcp -m tcp --dport 2181 -j ACCEPT
+
+### Zookeeper为什么使用奇数集群
+
+防止脑裂的产生
+Zookeeper有这么一个特性[集群中只有超过过半的机器是正常工作的，那么整个集群对外就是可用的]
+也就是说如果有2个zookeeper，那么1个死了zookeeper就不可用了，因为1没有过半，所以2个zookeeper的死亡容忍度为0，同理，3个zookeeper，一个死了，还有2个，过半了，所以3个zookeeper的容忍度为1。2n 和2n-1的容忍度是一样的，都是n-1，所以为了更加高效，没必要增加一个不必要的zookeeper
+
+`zookeeper集群一大特性是只要集群中半数以上的节点存活，集群就可以正常提供服务，
+而2n+1台和2n+2台机器的容灾能力相同，都是允许n台机器宕机。本着节约的宗旨，一般选择部署2n+1台机器`
+
 
 [参考](http://zookeeper.apache.org/doc/r3.5.3-beta/zookeeperStarted.html)
 [参考](http://huzongzhe.cn/categories/zookeeper/)

@@ -57,6 +57,44 @@ user:
 
  mysqldump -u user -p test > /data/mysql/test.sql
 
+ ## Mysql高可用
+
+ ### master-slave
+
+1.  `在master开启日志功能`
+
+在/etc/my.cnf添加如下代码
+server-id=1 # 给数据库服务的唯一标识
+log-bin=mysql_backup-bin
+
+2. `在master 创建使用从库访问masster，并获取用户读取二进制文件，实现数据同步`
+
+mysql>create user backup;
+mysql>grant peplication slave on *.* to 'backup'@'192.168.8.%' identified by 'Docker@38'; 
+
+3. 备份mysql master的数据到从库
+```
+mysql>flush table with read lock; # 锁定写入操作
+mysqldump -uroot -p --events -B -A --master-data=2 | gzip>/tmp/bak_sql.gz
+msyql>unlock tables; # 解锁表
+
+mysql -uroot -p < /tmp/bak_sql.sql # 从库 gzip -d 解压后，导入恢复
+```
+
+4. `从库/etc/my.cnf配置文件修改`
+
+server-id=3
+log-bin=mysql_backup-bin # 启用二进制文件
+
+5. `重启slave`
+
+mysql> change master to master_host='192.168.8.157',master_user='backup',master_password='Docker@38',master_port=3306;
+#设置服服务器的用户信息
+mysql> change master to master_log_file='mysql_backup-bin.000002',master_log_pos=333;
+#设置binlog信息
+
+7. `查看信息`
+
  ## Mysql优化
 
  ### 优化的哲学
