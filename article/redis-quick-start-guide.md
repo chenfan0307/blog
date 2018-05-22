@@ -11,36 +11,41 @@ redis是一个使用ANSI C编写的开源，支持网络，基于内存，可选
 	- 支持高可用，支持分布式分片集群
 
 ### 启动实例
-	
-- 安装和启动参照官网
-	
-- 备份redis.conf文件  cp redis.conf{,bak,$(date +%F)}
-	
-	```
-	[root@elk redis-4.0.6]# ll redis.conf*
-	-rw-rw-r-- 1 root root 57764 Dec  4 12:01 redis.conf
-	-rw-r--r-- 1 root root 57764 Mar 16 03:02 redis.conf2018-03-16
-	-rw-r--r-- 1 root root 57764 Mar 16 02:43 redis.conf.bak
-	```
-	
-- 精简配置文件
-	
-	```
-	[root@elk redis-4.0.6] egrep -v '#|^$' redis.conf.$(date +%F) >redis.conf
- 	[root@elk redis-4.0.6] cp redis.conf /etc
- 	````
-- 修改/etc/redis.conf配置文件 
- 
- 	11 logfile "/var/log/redis_6379.log"  # 配置redis 日志
 
-- [redis启动脚本]()
+- 安装和启动参照官网
+
+- 备份redis.conf文件  cp redis.conf{,bak,$(date +%F)}
+
+  ```
+  [root@elk redis-4.0.6]# ll redis.conf*
+  -rw-rw-r-- 1 root root 57764 Dec  4 12:01 redis.conf
+  -rw-r--r-- 1 root root 57764 Mar 16 03:02 redis.conf2018-03-16
+  -rw-r--r-- 1 root root 57764 Mar 16 02:43 redis.conf.bak
+  ```
+
+- 精简配置文件
+
+  ```
+  [root@elk redis-4.0.6] egrep -v '#|^$' redis.conf.$(date +%F) >redis.conf
+   [root@elk redis-4.0.6] cp redis.conf /etc
+   ````
+  ```
+- 修改/etc/redis.conf配置文件 
+
+   11 logfile "/var/log/redis_6379.log"  # 配置redis 日志
+
+- [redis启动脚本]()请参考网上
 
 - redis 多实例配置
-	[reids多实例创建脚本]()
-	[redis多实例启动脚本]()
+  [reids多实例创建脚本](../scipts/redis_create.sh)
+  [redis多实例启动脚本](../scipts/redis_start.sh)
 
 ###  reids数据持久化
 redis提供了多种不同级别的持久化方式，一种是RDB，另一种是AOF
+
+* AOF更安全，可以将数据及时同步到文件夹中，但需要较多的磁盘io，AOF的文件尺寸大，文件内容恢复较慢，也更完整
+
+* RDB持久化，安全性较差，它是正常数据备份及 master-slave数据同步的最佳手段，文件尺寸较小，恢复速度较快
 
 #### RDB持久化
 	可以在指定的时间间隔内生成数据集的时间点快照
@@ -48,9 +53,12 @@ redis提供了多种不同级别的持久化方式，一种是RDB，另一种是
 	- RDB可以最大化redis的性能。父进程在保存RDB文件时，惟一做的就是fork出一个子进程，子进程处理后面的所有操作，父进程不需要执行任何磁盘的I/O操作
 	- RDB在恢复大数据集时的速度比AOF的恢复速度快
 	- 缺陷：RDB对数据完整性要求不高，还有由于保存RDB文件，需要fork一个子进程，如果数据很大，对比AOF会比较耗资源
+
+
 #### AOF持久化
 	记录服务器执行的所有写操作命令，并在服务器时，通过重新执行这些命令来还原数据。AOF命令全以redis协议的格式来保存，新命令会追加到文件的末尾
 	- AOF 可以让redis更耐久，可以使用不同的fsync策略：无fsync和每秒fsync，每次写的时候，会使用默认的每秒fsync策略。对数据的完整性
+	
 	- AOF 文件有序的保存了对数据库执行的所有写入操作，这些操作以redis协议格式保存。因此它的可读性比较好
 redis还可以在后台对AOF文件进行重写(rewrite),使AOF的文件体积不会超过数据收集状态所需的实际大小。它可以使用RDB和AOF的持久化。在这种情况下，redis重启，它会优先使用AOF文件来还原数据集。因为AOF保存的数据集比RDB文件保存的数据集更完整。
 
@@ -80,43 +88,26 @@ redis集群是一个在多个redis节点之间进行数据共享的设施
 
 ### redis HA实践
 
-Redis Sentinel 功能
-Redis-Sentinel是Redis官方推荐的高可用性(HA)解决方案，当用Redis做Master-slave的高可用方案时，假如master宕机了，Redis本身(包括它的很多客户端)都没有实现自动进行主备切换，而Redis-sentinel本身也是一个独立运行的进程，它能监控多个master-slave集群，发现master宕机后能进行自动切换。
+#### redis cluster
 
-![redis_sentinel](../images/redis_sentinel.png)
-sentinel是一个监视器，它可以根据被监视实例身份和状态来判定做何操作
+这个是官方推荐的，它集合了主从和 sentinel的优点，管理也更加方便，并且容易，上手
 
-#### sentinel的功能
-- 监控(Monitoring)：
-	他会不会断的检查主服务器和从服务器是否运作正常
-- 提醒(Notification)：
-	当被监控的某个redis服务器出现问题时，sentinel就可以通过API或其他应用程序通知到系统管理员
-- 自动故障迁移(Automatic failover):
-	当主服务器不能正常工作时，sentinel会开始一次自动故障迁移操作，将失效的主服务器中的一个从服务器升级为主服务器，并让失效主服务器中的从服务器修改主服务器为新的主服务器；当客户端尝试连接失效的主服务器时，集群会向客户端返回新的主服务器地址，是集群ok
+安装参考官方文档
+主要是使用redis-trib.rb
 
+### Redis的数据备份与恢复
 
+```
+127.0.0.1:6379> CONFIG GET dir
+1) "dir"
+2) "/root"
+127.0.0.1:6379> save
+OK
+127.0.0.1:6379> BGSAVE
+Background saving started
+127.0.0.1:6379> CONFIG GET dir
+1) "dir"
+2) "/root"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+推荐使用bgsave 它会在后台一直备份，然后恢复的话只要redis服务即可
+```
