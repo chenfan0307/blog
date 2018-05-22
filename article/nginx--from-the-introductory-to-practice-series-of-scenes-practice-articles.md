@@ -1,5 +1,21 @@
 # Nginx深度学习篇
 
+## http协议状态码
+
+```
+200 OK
+3xx 重定向 301 302 304 永久重定向 临时重定向 缓存 
+4xx 错误 用户访问路径有问题，目录权限问题
+5xx 服务器内部错误，代码问题
+
+Nginx :413 request Entity too Larage 用户上传文件限制：client_max_body_size
+502 Bad Gateway  后端服务无响应，重启服务
+504 Gateway Time-out 后端服务执行超时
+403 访问被拒绝
+404 文件没有找到
+400 请求参数错误
+```
+
 ## Nginx https配置
 
 ### nginx ssl
@@ -216,3 +232,5 @@ $scheme 这个参数是http https
 $request_uri 这个参数是请求的原始 URI，也就是包含 $args 的。而 rewrite 指令本身有自带 $args，于是 $args 就被重复加了一次。比如请求「http://localhost/?a=1」想被 301 到「https://localhost/?a=1?a=1
 
 [可以参考](https://www.web-tinker.com/article/21194.html)
+
+个人写的Nginx教程比较简单，还是需要看Nginx Plus的官方教程
