@@ -106,12 +106,70 @@ EXPOSE 8080
 CMD["catalina.sh", "run"]
 ```
 
+### docker 网络模式
 
+* none模式
+
+这种模式下，Docker容器拥有自己的network namespace，但是并不会为 docker配置任何网络。也就是说docker容器除了network namespace自带的loopback网卡外没有任何其他的网卡,ip，路由信息。需要用户自己为docker容器配置网卡，Ip等。这种模式可以为用户最大自由度来定义容器的网络环境。
+
+* host模式
+
+使用--net=host指定，这种模式的docker server将不为docker容器创建网络协议栈，即不会创建独立的network namspace.docker容器中的进程处于宿主机的网络环境中，相当于docker容器和宿主机共同用一个network namespace，使用宿主机的网卡，ip和端口信息。但是容器的文件系统和进程等都是和宿主机隔离的。host模式可以很好的解决容器与外界通信的地址转换问题，可以直接使用宿主机的Ip进行通信。但是降低了隔离性，同时会引起网络资源的竞争与冲突
+
+* bridge模式
+
+使用--net=bridge指定，为docker的默认设置。这种模式就是将创建出来的docker容器连接到docker的网桥上。在Bridge模式下
+
+1.创建一对虚拟网卡
+2.赋予一块网卡类似veth的名字，将其留在宿主机root network namesapce中，并绑定到docker网桥上
+3.将另一块网卡放入新创建的network namesapce（docker容器中），命名为eth0
+4.从docker网络的子网中选择一个未使用的ip分配给eth0，并为docker容器设置默认路由，默认网关为docker网桥
+
+它默认使用的是nat，在复杂的场景下使用会有诸多限制
+
+
+* container 模式
+
+就是新建一个容器使用之前一个容器的ip地址
+```
+docker run -d --network=container:container_name --restart=always -e UTF-8 --name busy_box nginx:latest
+```
+
+[参考](https://docs.docker.com/engine/tutorials/networkingcontainers/#create-your-own-bridge-network)
+
+```
+docker network ls # 显示当前网络
+docker network disconnect bridge container-name # 拒绝掉容器名的网络
+docker network create -d bridge my_bridge	 # 创建网桥
+docker network inspect my_bridge # 显示my_bridge网桥的信息
+docke run -d --net=my_bridge --name my_container_name centos:latest
+
+docker inspect --format='{{json .NetworkSettings.Networks}}' db
+docker run -d --name web nginx:latest python app.py
+这么做2个容器是不互通的
+docker network connect my_bridge web
+```
+
+
+### docker高级实践技巧
+
+
+容器的本质是一个系统进程加上一套运行时库的封装，而针对容器，我们需要监控，资源控制，配置管理和安全等。
+
+### docker 连接container ssh的替代方案
+
+```
+docker exec -it <container_name> bash 
+```
+
+### docker 的日志管理方案
+
+```
+docker对运行内部的日志管理较薄弱，每个运行在容器内的应用的日志输出同一保存到宿主机的/var/log目录下，文件夹以容器ID命名。
+docker会把应用的stdout和stderr2个日志输出到/var/log下。docker以json消息记录每一行日志，将导致日志增长过快，从而超过磁盘限额
+```
 
 ## 原理解读
-
-
-## 高级应用技巧
 
 
 ## Kubernetes
