@@ -21,7 +21,7 @@
 - 2018年5月5日 [Docker快速入门指北](https://www.hafang.top/article/docker-quick-start-guide)
 - 2018年5月7日 [Mysql快速入门指北](https://www.hafang.top/article/mysql-quick-start-guide)
 - 2018年5月7日 [Jenkins入门指北](https://www.hafang.top/article/jenkins-quick-start-guide)
-- 2018年3月15日 [Fabric入门指北](ttps://www.hafang.top/article/fabric-quick-start-guide)
+- 2018年3月15日 [Fabric入门指北](https://www.hafang.top/article/fabric-quick-start-guide)
 - 2018年5月7日 [Ansible入门指北](https://www.hafang.top/article/ansible-quick-start-guide)
 - 2018年4月15日 [Redis入门指北](https://www.hafang.top/article/redis-quick-start-guide)
 - 2018年3月15日 [Zookeeper入门指北](https://www.hafang.top/article/zookeeper-quick-start-guide)
