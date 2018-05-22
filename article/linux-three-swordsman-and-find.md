@@ -150,7 +150,7 @@ find pathname -options [-print, -exec, -ok, xargs...]
 
 - -print 表示find命令将匹配的文件输出到标准输出中
 
-- -exec 表示find命令对匹配的文件执行改参数锁给出的shell指令。相应的命令的形式为'command' {} \;
+- -exec 表示find命令对匹配的文件执行改参数锁给出的shell指令,每次操作都会产生一个线程。相应的命令的形式为'command' {} \;
 
 - -ok 表示和-exec效果是一样的，只是他会给用户一个选择判断的机会
 
@@ -174,6 +174,9 @@ find . -regex ".*\(\.txt|\.pdf)$" -print
 find . ! -name "*.txt" -print
 find . -maxdepth 1 -type f
 find . -type f -name "*.swap" -delete
-find . -type f -user root -exec chow chenfan {} \;
+find . -type f -user root -exec chown chenfan {} \;
 find . -type f -mtime + 10 -name "*.txt" -exec cp {} OLD \;
+find ./ -size 0 | xargs rm -f &
+find ./ -mtime +3 -print | xargs rm -rf
+find ./ -mtime +3 -print -delete
 ```
