@@ -50,9 +50,6 @@ JAVA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms1024m -Xmx
 
 [调优参考](http://www.cnblogs.com/276815076/p/5549133.html)
 
-``` 线上配置
-CATALINA_OPTS="-server -Xms1024m -Xmx1024m -Xmn300m -Xss800k -XX:PermSize=300m -XX:M    axPermSize=300m -XX:+ExplicitGCInvokesConcurrent -XX:+UseParNewGC -XX:+UseConcMarkSw    eepGC -XX:CMSInitiatingOccupancyFraction=85 -XX:+PrintGCDetails -XX:+PrintGCTimeStam    ps -XX:SurvivorRatio=8 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$LOG_PATH -X    loggc:$LOG_PATH/jvm.`date +%Y-%m-%d`.log"
-```
 
 nginx跳转参考 nginx文档
 
