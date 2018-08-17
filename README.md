@@ -30,3 +30,4 @@
 - 2018年3月15日 [Zookeeper入门指北](https://www.hafang.top/article/zookeeper-quick-start-guide)
 - 2018年5月1日 [Tomcat部署实践及安全调优](https://www.hafang.top/article/tomcat-quick-start-guide)
 - 2018年5月7日 [个人常用命令](https://www.hafang.top/article/usuall_use_command)
+- 2018年8月17日 [ossec - local模式下使用](https://www.hafang.top/article/ossec-local-use)
