@@ -1,12 +1,14 @@
 # Welcome to hafang's Blog!
 
-> [The way of learning Python In Preparationn](https://www.hafang.top/article/python-learn-way)
+> 祝你早安，午安，晚安，万事胜意 - 祝每一个有缘人
 
-> [The way of learning Html Css](http://www.hafang.top)
+> [The way of learning Python In Preparationn](https://www.hafang.top/article/python/python-menu)
 
-> [Devops Tools](http://www.hafang/top)
+> [The way of learning Html Css](http://www.hafang.top/article/Html-Css)
 
-> [Reaction to a Book](http://www.hafang.top/article/reaction-to-book)
+> [Devops Tools](http://www.hafang.top/article/Linux/devops-menu)
+
+> [Reaction to a Book](http://www.hafang.top/article/book/book-menu)
 
 博客托管于[Github](https://github.com/chenfan0307/blog),有问题欢迎提[issues](https://github.com/chenfan0307/blog/issues)
 
