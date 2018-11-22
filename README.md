@@ -8,7 +8,13 @@
 
 > [Devops Tools](http://www.hafang.top/article/Linux/devops-menu)
 
+> [Linux performance optimization](http://www.hafang.top/article/Linux/permormace)
+
+> [The way of learn Mysql](http://www.hafang.top/article/mysql/mysql-menu)
+
 > [Reaction to a Book](http://www.hafang.top/article/book/book-menu)
+
+> [The way of learn Nginx](http://www.hafang.top/article/nginx/nginx-menu)
 
 博客托管于[Github](https://github.com/chenfan0307/blog),有问题欢迎提[issues](https://github.com/chenfan0307/blog/issues)
 
