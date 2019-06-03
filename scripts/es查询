@@ -1,0 +1,9 @@
+GET /idata_reg_event/idata/_search?size=1000
+{
+  "query": {
+    "match_all": {}
+  },
+  "sort": {
+    "day": "desc"
+  }
+}
