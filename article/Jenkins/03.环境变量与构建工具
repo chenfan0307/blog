@@ -1,0 +1,32 @@
+[TOC]
+
+# 环境变量域构建工具
+
+## 环境变量
+
+### Jenkins内置变量
+
+> 在pipeline执行时,Jenkins通过一个名为env的全局变量,将jenkins内置环境变量暴露出来
+
+```
+pipeline {
+  agent any
+  stages {
+    stage('Example') {
+      steps {
+        echo "Running ${env.BUILD_NUMER} on ${env.JENKINS_URL}"
+        echo "Running $env.BUILD_NUMBER" on $env.JENKINS_URL
+        echo "Running ${BUILD_NUMBER} on ${JENKINS_URL}"
+      }
+    }
+  }
+}
+```
+
+### 自定义pipeline环境变量
+
+> 当pipeline变的复杂时,我们就会定义自己的环境变量的需求. 声明式pipeline提供了environment指令,方便自定义变量
+
+```
+
+```
