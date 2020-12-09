@@ -1,0 +1,200 @@
+[TOC]
+
+# Pipeline语法讲解
+
+## Groovy知识
+
+参考菜鸟教程
+
+## Pipeline组成
+
+> jenkins pipeline其实是基于Groovy语言实现的一种DSL(领域特定语言)，用于描述整条流水线是如何进行的.流水线的内容包括执行编译,打包,测试,输出测试报告等步骤
+
+### Pipeline最简结构
+
+```
+pipeline {
+  agent any
+  stages {
+    stage('build') {
+      steps {
+        echo "hello world"
+      }
+    }
+  }
+}
+```
+
+pipeline: 代表整条流水线. 包括整条流水线的逻辑
+stage部分: 阶段. 代表流水线的阶段,每个阶段都必须有名称.
+stages部分: 流水线中多个stage的容器. stages部分至少包含一个stage
+steps部分: 代表阶段中的一个或多个具体步骤(step)的容器.steps部分至少包含一个步骤.  在一个stage中有且只有一个steps
+agent: 指定流水线执行位置(jenkins agent). 流水线中的每个阶段都必须在某个地方执行,agent部分即指定具体在哪里执行
+
+### 步骤
+
+> pipeline基本结构决定的是pipeline整体流程,但是真正做事的还是pipeline中的每一个步骤
+
+### post部分
+
+```
+post {
+  failure {
+    mail to: 'team@example.com',subject: 'The pipeline failed:()'
+  }
+}
+```
+always: 不论当前完成是啥状态.都执行
+changed: 只要当前完成状态与上一次完成状态不同就执行
+fixed: 上一次完成状态为失败或不稳定.当前完成状态为成功时执行
+aborted: 当执行的结果是中止状态
+failure: 失败时执行
+success: 完成状态为成功时执行
+unstable: 完成状态为不稳定时执行
+cleanup: 清理条件块.不论当前完成状态是什么.都执行
+
+```
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        echo "build stage"
+      }
+      post {
+        always {
+          echo "stage post always"
+        }
+      }
+    }
+  }
+  post {
+    changed {
+      echo "pipline has changed"
+    }
+    always {
+      echo "pipeline post always"
+    }
+    success {
+      echo "pipeline post success"
+    }
+  }
+}
+```
+
+### Pipeline 支持的指令
+
+environmnet: 用于设置环境变量.可以定义在stage和pipline部分
+tools: 可以定义在pipeline或stage部分.它会自动下载并安装我们指定的工具,并将其加入到PATH变量中
+input: 定义在stage部分.会暂停pipeline，提示你输入的内容
+options: 用于配置jenkins pipeline本身的选项. options { retry(3) } 指当pipeline失败时再重试2次
+parallel: 并行执行多个step
+parameters: 与input不同,parameters是执行pipeline前传入的一些参数
+trggers: 用于定义pipeline执行的chufaqi
+when: 当满足when定义的条件时,阶段才执行
+
+### 配置pipeline本身
+
+buildDiscarder： 保存历史构建记录的数量
+```
+options {
+  buildDiscarder(logRotator(numToKeepStr:'10'))
+}
+```
+
+checkoutToSubdirectory: jenkins从版本控制库拉取源码时,默认检出到工作空间的根目录中
+```
+options {
+  checkoutToSubdirectory('subdir')
+}
+```
+
+disableConcurrentBuilds: 同一个pipeline,jenkins默认可以同时执行多次的.抢占资源核调用冲突的场景
+```
+options {
+  disableConcurrentBuilds()
+}
+```
+
+newContainerPerStage: 当agent为docker或dockerfile时,指定在同一个jenkins节点上.每个stage都分别运行在一个新的容器中
+
+```
+options {
+  newContainerPerStage()
+}
+```
+
+retry: 重试次数
+
+```
+pipeline {
+  agent any
+  options {
+    retry(4)
+  }
+  stages {
+    stage('build'){
+      steps {
+        echo "ok"
+        error("emm....")
+      }
+    }
+  }
+}
+```
+
+timeout: 如果pipeline执行时间过长,超出了我们设置的timeout时间,jenkins将终止pipeline
+
+```
+options {
+  timeout(time: 10, unit: 'HOURS')
+}
+```
+
+### 在声明式Pipeline中使用脚本
+
+```
+pipeline {
+  agent any
+  stages {
+    stage('Example') {
+      steps {
+        script {
+          def browsers = ['chrome','firefox']
+          for (int i =0; i < browsers.size();i++ ) {
+            echo "Testing the ${browsers}[i] browser"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Pipeline内置基础步骤
+
+deleteDir: 删除当前目录
+
+dir: 切换目录
+
+```
+dir("/var/log") {
+  deleteDir()
+}
+```
+
+fileExists: 判断文件是否存在
+
+fileExists('/tmp/a.jar') 结果返回布尔值
+
+error: 主动报错.中止当前pipeline
+
+error("there's an error")
+
+使用Workspacae Cleanup插件清理空间
+
+post {
+  alywas {
+    cleanWs()
+  }
+}
