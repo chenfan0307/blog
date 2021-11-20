@@ -1,0 +1,23 @@
+定义了pod的副本期望,包括数量,筛选标签和模板
+自动化保证pod高可用的核心组件,监控和保证pod的生命周期管理
+自动监控pod运行的副本数是符合预期的
+
+
+replica set(rs) 和 deployment
+
+rs是新一代的rc,常配合deployment使用
+支持多种类型的标签匹配模式(如支持集合和运算)
+deployment是对集群管理更高级的抽象
+保证无状态服务的正确运行和更新
+通过label关联rs和pod
+
+label和 label selecotr
+
+标签是key/values的键值对,可以应用于各种资源对象
+一个资源对象可以有多个标签,一个标签也可以关联多个对象
+常用于资源分组管理和关联,比如 env:dev, env:test, env:prod
+标签的类型
+  * 等式: name=nginx
+  * 集合: env in (dev, test), name not in (front)
+  * matchExpressions:
+      - {key: env, operator: In, values: [dev, tes
