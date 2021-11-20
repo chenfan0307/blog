@@ -1,0 +1,8 @@
+volume和persistent volume(pv)
+
+类似docker的存储卷,但是pod内共享存储卷
+原生支持多种存储类型,如本地存储 nfs 分布式存储
+pv只能是网络存储,不属于任何node，并在所有node可访问
+pv定义的一块存储资源,pod可以通过pvc来申请使用
+
+pod -> pvc -> pv
