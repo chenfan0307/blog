@@ -1,1 +1,31 @@
+Pod的 定义
+
+Pod是集群中运行部署应用或服务的最小单元
+每个pod都是应用的实例,可同时运行多个容器
+同一个Pod中的容器共享网络和存储资源
+同一个pod中的容器总会被调度到相同的node
+pause容器代表整个容器组的状态
+
+
+pod的生命周期
+
+pod一旦不绑定节点,就永远不会移动，即便发生重启
+pod的状态pending,running,succeeded,failed
+controller会负责pod的重新调度,不建议单独创建一个pod
+pod的重启策略包括 onfailure,never,always
+
+
+Pod的资源配置
+
+可以为Pod制定服务器资源配额
+当前可配置的资源为cpu和mem
+申请配额(requests)和最大配额(limits)
+
+
+Pod liveness和readiness探针
+
+liveness表示容器的存活性,用于确定何时重启
+readiness表示容器的就绪状态,可以用于接收流量
+对于pod中多容器的场景, 只有所有容器就绪,才认为pod就绪
+探针支持多类型, comamnd, http, tcp等
 
