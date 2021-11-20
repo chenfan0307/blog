@@ -1,0 +1,17 @@
+svc
+通过定义pod的逻辑分组和访问策略实现pod的抽象访问
+每个service分配唯一不变的集群虚拟ip地址(vip)
+屏蔽了pod的动态创建和销毁带来的ip变更影响
+
+svc代理
+
+集群中的每个node运行一个kube-proxy进程
+kube-proyx监控service和endpoint对象的变更并设ipvs
+kube-proxy提供代理请求和负载均衡能力
+
+satefulset
+
+类似replicaset概念,面向有状态的服务
+常用于多副本的中间件集群,如zookeeper,etcd等
+每个pod都有唯一的网络标识,并关联持久化存储卷
+服务的部署,扩展和删除都是有序完成的
