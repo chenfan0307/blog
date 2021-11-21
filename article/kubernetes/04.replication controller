@@ -21,3 +21,13 @@ label和 label selecotr
   * 集合: env in (dev, test), name not in (front)
   * matchExpressions:
       - {key: env, operator: In, values: [dev, tes
+
+deployment 无状态的服务 不需要依赖本地存储 和启动顺序 集群要求
+statefulset 有状态的服务 需要依赖本地存储 和启动顺序 集群要求 tcp连接 唯一的网络标识  正常启动和终止要求等
+
+statefulset的功能特性
+* 稳定的 唯一的网络标识
+* 稳定的 持久化的存储
+* 有序的 优雅的部署和缩放
+* 有序的 优雅的终止和删除
+* 有序的 自动滚动更新
