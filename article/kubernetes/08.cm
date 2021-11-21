@@ -1,0 +1,23 @@
+configmap
+
+应用的配置管理.敏感信息的存储和使用,容器运行时的资源配置,安全管控,身份认证等
+
+secret
+
+保存敏感信息
+
+
+secret vs configmap
+
+相同点:
+  * key/value 的形式
+  * 属于某个特定的命名空间
+  * 可以到处环境变量
+  * 可以通过目录/文件形式挂载
+  * 通过volume挂载的配置信息均可热更新
+不同点
+  * secret可以被servcerAccount关联
+  * secret可以存储docker register的鉴权信息,用在imagepullsecret参数信息,用于镜像拉取
+  * secret支持base64加密
+  * secret分为 kubernetes.io/service-account-token、kubernetes.io/dockerconfigjson、Opaque 三种类型，而 Configmap 不区分类型
+ 
