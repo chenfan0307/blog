@@ -15,3 +15,28 @@ satefulset
 常用于多副本的中间件集群,如zookeeper,etcd等
 每个pod都有唯一的网络标识,并关联持久化存储卷
 服务的部署,扩展和删除都是有序完成的
+
+三种ip地址
+nodeip node节点得ip地址
+pod ip pod得IP地址
+cluster ip service得ip地址
+
+node IP 是 Kubernetes 集群中节点的物理网卡 IP 地址(一般为内网)，所有属于这个网络的服务器之间都可以直接通信，
+所以 Kubernetes 集群外要想访问 Kubernetes 集群内部的某个节点或者服务，肯定得通过 Node IP 进行通信（这个时候一般是通过外网 IP 了）
+
+Pod IP 是每个 Pod 的 IP 地址，它是网络插件进行分配得
+
+Cluster IP 是一个虚拟的 IP，仅仅作用于 Kubernetes Service 这个对象，由 Kubernetes 自己来进行管理和分配地址
+
+
+service支支持2钟形式得会话亲和性服务: node和clentip,不支持基于cookie的会话亲和性,这是因为service不是在http层面上工作的,处理
+的是tcp和udp的包,并不关心其他的载荷内容,因为cookie是http协议的一部分,service并不知道他们,所有会话亲和性不能基于cookie
+
+clusterip 通过集群的内部ip暴露服务,选择该值,服务只能够在集群内部可以访问,默认的服务类型
+
+nodeport 通过每个node节点上的ip和静态端口(nodeport)暴露服务,nodeport服务会路由到clusterip服务
+
+loadbalancer 使用云提供商的负载均衡器,可以向外暴露服务
+
+externalname 通过返回cname和它的值,可以将服务映射到externalname字段的内容
+
